@@ -1,70 +1,69 @@
-" Arquivo de sintaxe Vim para Bullet Journal (bujo)
-" Baseado em bujo.nanorc por nicholai.best@gmail.com
+" Vim syntax file for Bullet Journal (bujo)
+" Based on bujo.nanorc by nicholai.best@gmail.com
 "
-" Visão geral:
-"   As regras são definidas na mesma ordem do bujo.nanorc.
-"   Regras definidas posteriormente têm prioridade maior, assim como no nano.
+" Overview:
+"   Rules are defined in the same order as bujo.nanorc.
+"   Rules defined later have higher priority, same as in nano.
 
 if exists("b:current_syntax")
   finish
 endif
 
 " ---------------------------------------------------------------------------
-" Reunião (Meeting)
+" Meeting
 " ---------------------------------------------------------------------------
-" Listada primeiro para que as tarefas possam ser colocadas nelas e sejam
-" 'coloridas' corretamente.
+" Listed first so tasks can be placed inside and colored correctly.
 
-" 1. M e a primeira palavra em vermelho (indicador de erro se não houver data)
+" 1. M and the first word in red (error indicator if no date)
 syn match bujoMeetingError "^M \S\+" contains=bujoMeetingMarkerC
 
-" 2. Formato de data válido torna-se verde
+" 2. Valid date format turns green
 syn match bujoMeetingDate "^M\s*\d\d-\d\d-\d\d\d\d\s*\d\d\d\d" contains=bujoMeetingMarkerC
 
-" 3. O 'M' em verde claro independentemente
+" 3. 'M' in bright green regardless
 syn match bujoMeetingMarker "^M\>"
 syn match bujoMeetingMarkerC "^M\>" contained
 
 " ---------------------------------------------------------------------------
-" Tarefas
+" Tasks
 " ---------------------------------------------------------------------------
 
-" Tarefa importante
+" Important task
 syn match bujoImportant "! .*"
 
-" Tarefa normal
+" Normal task
 syn match bujoTask "^\* "
 syn match bujoTaskInline " \* "
 
-" Tarefa de baixa prioridade
+" Low priority task
 syn match bujoLowPriority "\*l"
 
-" Explorar
+" Explore
 syn match bujoExplore "^\? .*$"
 
 " ---------------------------------------------------------------------------
-" Email e Contatos
+" Email and Contacts
 " ---------------------------------------------------------------------------
 
-" Email a ser respondido (@ no início da linha)
+" Email to be replied to (@ at start of line)
 syn match bujoEmail "^@"
 
-" Destaca um contato (@Nome)
+" Highlight a contact (@Name)
 syn match bujoContact "@[[:alpha:]]*\>"
 
-" Destaca um endereço de email
+" Highlight an email address
 syn match bujoEmailAddress "\<[[:alnum:]-]*@[[:alnum:].\-]*\>"
 
 " ---------------------------------------------------------------------------
-" Migração
+" Migration
 " ---------------------------------------------------------------------------
 
-" Migrado para frente (>> e conteúdo)
+" Migrated forward (>> and content)
 syn match bujoMigratedContent ">>.*" contains=bujoMigratedMarker
 syn match bujoMigratedMarker ">>" contained
 
 " ---------------------------------------------------------------------------
-" Encaminhamento de agendamento (>>>)
+" Scheduling forward (>>>)
 " ---------------------------------------------------------------------------
 
 syn match bujoScheduledContent ">>>.*$" contains=bujoScheduledMarker,bujoScheduledDate
@@ -72,14 +71,14 @@ syn match bujoScheduledMarker "^>>>" contained
 syn match bujoScheduledDate "^>>>\d\d-\d\d-\d\d\d\d>>>" contained
 
 " ---------------------------------------------------------------------------
-" Delegado (<<)
+" Delegated (<<)
 " ---------------------------------------------------------------------------
 
 syn match bujoDelegatedContent "<<.*$" contains=bujoDelegateHighlight
 syn match bujoDelegateHighlight "^<<.*<<" contained
 
 " ---------------------------------------------------------------------------
-" Tarefas completadas e canceladas
+" Completed and cancelled tasks
 " ---------------------------------------------------------------------------
 
 syn match bujoCompleted "^[xX].*$"
@@ -88,26 +87,26 @@ syn match bujoCancelledContent "CX.*$" contains=bujoCancelledMarker
 syn match bujoCancelledMarker "CX" contained
 
 " ---------------------------------------------------------------------------
-" Datas
+" Dates
 " ---------------------------------------------------------------------------
 
 syn region bujoDate start="===" end="===" oneline
 
 " ---------------------------------------------------------------------------
-" Comentários
+" Comments
 " ---------------------------------------------------------------------------
 
 syn match bujoComment "\(^\|\s\+\)#.*$"
 
 " ---------------------------------------------------------------------------
-" String (não utilizado frequentemente, salvo para exemplo)
+" String (not frequently used, saved as example)
 " ---------------------------------------------------------------------------
 
 syn match bujoString /".\+"\(\s\|$\)/
 
 " ===========================================================================
-" Definições de destaque (cores)
-" Mapeamento: nano -> vim
+" Highlight definitions (colors)
+" Mapping: nano -> vim
 "   black       -> Black         brightblack -> DarkGray
 "   red         -> DarkRed       brightred   -> Red
 "   green       -> DarkGreen     brightgreen -> Green
@@ -117,47 +116,47 @@ syn match bujoString /".\+"\(\s\|$\)/
 "   white       -> White
 " ===========================================================================
 
-" Reunião
+" Meeting
 hi def bujoMeetingError    ctermfg=DarkRed    guifg=DarkRed
 hi def bujoMeetingDate     ctermfg=DarkGreen  guifg=DarkGreen
 hi def bujoMeetingMarker   ctermfg=Green      guifg=LightGreen
 hi def bujoMeetingMarkerC  ctermfg=Green      guifg=LightGreen
 
-" Tarefas
+" Tasks
 hi def bujoImportant       ctermfg=Yellow     guifg=Yellow
 hi def bujoTask            ctermfg=Red        guifg=LightRed
 hi def bujoTaskInline      ctermfg=Red        guifg=LightRed
 hi def bujoLowPriority     ctermfg=DarkMagenta guifg=DarkMagenta
 hi def bujoExplore         ctermfg=DarkCyan   guifg=DarkCyan
 
-" Email e Contatos
+" Email and Contacts
 hi def bujoEmail           ctermfg=DarkGreen  guifg=DarkGreen
 hi def bujoContact         ctermfg=DarkMagenta guifg=DarkMagenta
 hi def bujoEmailAddress    ctermfg=Magenta    guifg=Magenta
 
-" Migração
+" Migration
 hi def bujoMigratedContent ctermfg=Black      guifg=Black
 hi def bujoMigratedMarker  ctermfg=DarkGray   guifg=DarkGray
 
-" Agendamento
+" Scheduling
 hi def bujoScheduledContent ctermfg=DarkGray  guifg=DarkGray
 hi def bujoScheduledMarker  ctermfg=DarkRed   guifg=DarkRed
 hi def bujoScheduledDate    ctermfg=DarkGreen guifg=DarkGreen
 
-" Delegado
+" Delegated
 hi def bujoDelegatedContent ctermfg=DarkGray  guifg=DarkGray
 hi def bujoDelegateHighlight ctermfg=DarkCyan guifg=DarkCyan
 
-" Completadas e Canceladas
+" Completed and Cancelled
 hi def bujoCompleted       ctermfg=DarkGray   guifg=DarkGray
 hi def bujoCompletedInline ctermfg=DarkGray   guifg=DarkGray
 hi def bujoCancelledContent ctermfg=Black     guifg=Black
 hi def bujoCancelledMarker  ctermfg=DarkGray  guifg=DarkGray
 
-" Datas
+" Dates
 hi def bujoDate            ctermfg=Green      guifg=LightGreen
 
-" Comentários
+" Comments
 hi def bujoComment         ctermfg=DarkGray   guifg=DarkGray
 
 " Strings

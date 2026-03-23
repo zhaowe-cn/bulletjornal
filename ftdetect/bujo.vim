@@ -1,2 +1,2 @@
-" Detecção de tipo de arquivo para Bullet Journal (bujo)
+" Filetype detection for Bullet Journal (bujo)
 autocmd BufRead,BufNewFile *.bujo setfiletype bujo

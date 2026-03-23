@@ -1,64 +1,64 @@
-## Marcar cores para arquivos do bujo.
-## Cores das tarefas primeiro para que o símbolo seja sempre colorido
-## palavras-chave depois para que mantenham a cor
-## comentários por último para que tudo seja colorido
+## Color highlighting for bujo files.
+## Task colors first so the symbol is always colored
+## keywords next so they keep their color
+## comments last so everything is colored
 
-## visão geral de regex
-## '^' é o início da linha
-## '$' é o final da linha
-## '[[:digit:]]' é um número
-## '[[:alpha:]]' é uma letra
-## '.' é curinga
-## '*' 0 ou mais do caractere anterior
-## '+' 1 ou mais do caractere anterior
-## veja 'man grep' para mais informações
+## regex overview
+## '^' is the start of the line
+## '$' is the end of the line
+## '[[:digit:]]' is a digit
+## '[[:alpha:]]' is a letter
+## '.' is a wildcard
+## '*' 0 or more of the preceding character
+## '+' 1 or more of the preceding character
+## see 'man grep' for more information
 syntax "bujo" "\.?bujo$"
 comment "//"
 
-# Reunião listada primeiro para que as tarefas possam ser colocadas nelas e sejam 'coloridas' corretamente
-# 1 Transforma o M e a primeira palavra em vermelho para assumir erro
+# Meeting listed first so tasks can be placed inside and colored correctly
+# 1 Turn M and the first word red to assume error
 color red start="^M " end=" "
 
-# 2 formato de data torna-se verde, se não for encontrado, permanece vermelho
+# 2 date format turns green, if not found, stays red
 icolor green "^M[[:space:]]*([[:digit:]][[:digit:]]-[[:digit:]][[:digit:]]-[[:digit:]][[:digit:]][[:digit:]][[:digit:]])[[:space:]]*[[:digit:]][[:digit:]][[:digit:]][[:digit:]]"
 
-# 3 torna o 'M' em verde claro independentemente
+# 3 turn 'M' bright green regardless
 icolor brightgreen "^M\>"
 
-# tarefa importante
+# important task
 color brightyellow "! .*"
 
-# tarefa
+# task
 color brightred "^\* "
 color brightred " \* "
 
-# tarefa de baixa prioridade
+# low priority task
 color magenta "\*l"
-# explorar
+# explore
 color cyan "^\? .*$"
-#email a ser respondido
+# email to be replied to
 icolor green "^@"
 
-# Destaca um contato
+# Highlight a contact
 icolor magenta "@[[:alpha:]]*\>"
-# Destaca um email
+# Highlight an email
 icolor brightmagenta "\<([[:alnum:]]|-)*@([[:alnum:]]|-|\.)*\>"
 
-# Migrado para frente
+# Migrated forward
 color black ">>.*"
 color brightblack ">>"
 
-# encaminhamento de agendamento
+# scheduling forward
 color brightblack ">>>.*$"
 color red "^>>>"
 color green "^>>>([[:digit:]][[:digit:]]-[[:digit:]][[:digit:]]-[[:digit:]][[:digit:]][[:digit:]][[:digit:]])>>>"
 
-# delegado
+# delegated
 #color cyan start="<<" end="<<"
 color brightblack "<<.*$"
 color cyan "^<<.*<<"
 
-# Tarefas completadas
+# Completed tasks
 color brightblack "^x.*"
 color brightblack "^X.*"
 color brightblack "\<x .*"
@@ -66,19 +66,19 @@ color brightblack "\<X .*"
 color black "CX.*"
 color brightblack "CX"
 
-# Destaca Datas
+# Highlight dates
 color brightgreen start="===" end="==="
 
-# Comentários
+# Comments
 color brightblack "(^|[[:space:]]+)#.*$"
 #color brightblue "^[[:space:]]*##.*$"
 
-# Não utilizado, salvo para exemplo
+# Not used, saved as example
 # String
 color white "".+"([[:space:]]|$)"
 
-# comentário multilinha
+# multiline comment
 #color yellow start="\{" end="\}"
 
-# strings (sem tratamento multilinha ainda)
+# strings (no multiline handling yet)
 #color brightblack ""[^\"]*""
